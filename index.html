@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Handlebars Example</title>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+</head>
+<body>
+<div id="header-placeholder"></div>
+<div id="central-placeholder"></div>
+<div id="footer-placeholder"></div>
+
+<script id="headerTemplate" type="text/x-handlebars-template">
+	<div class="topbar">
+		{{#navigation}}
+			<a class="headerElement {{selected}}" data-id="{{id}}">{{name}}</a>
+		{{/navigation}}
+	</div>
+	<h1>{{headerTitle}}</h1>
+</script>
+
+<script id="centralTemplate" type="text/x-handlebars-template">
+	<div class="central">{{{contentSent.mainData}}}</div>
+  
+	{{#if contentSent.author}}
+		<p>Author: {{fullName contentSent.author}}</p>
+	{{else}}
+		<p>Unknown Author</p>
+	{{/if}}
+	
+	{{#with contentSent.author}}
+		<p>By {{firstName}} {{lastName}}</p>
+	{{/with}}
+	
+	<ul>
+		{{#each contentSent.people}}
+			<li>{{@index}} - {{this}}</li>
+		{{else}}
+			<li>No people to list</li>
+		{{/each}}
+	</ul>
+	
+	{{#unless contentSent.license}}
+		<h3>WARNING: license not set</h3>
+	{{/unless}}
+</script>
+
+<script id="userListTemplate" type="text/x-handlebars-template">
+	<table width="300px">
+		<thead>
+			<th>ID</th>
+			<th>Fullname</th>
+			<th>Email</th>
+		</thead>
+		<tbody>
+			{{#users}}
+				<tr>
+					<td>{{id}}</td>
+					<td>{{firstName}} {{lastName}}</td>
+					<td>{{email}}</td>
+				</tr>
+			{{/users}}
+		</tbody>
+	</table>
+</script>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="handlebars.js" type="text/javascript"></script>
+<script src="templates.js" type="text/javascript"></script>
+</body>
+</html>
